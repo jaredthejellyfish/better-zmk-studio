@@ -13,8 +13,8 @@ export default defineConfig(() => {
         registerType: "autoUpdate",
         includeAssets: ["favicon.svg"],
         manifest: {
-          name: "Better ZMK Studio",
-          short_name: "ZMK Studio",
+          name: "better-zmk-studio",
+          short_name: "better-zmk-studio",
           start_url: "/",
           display: "standalone",
           background_color: "#111827",

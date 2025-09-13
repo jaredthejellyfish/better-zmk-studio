@@ -6,7 +6,7 @@ import { UserCancelledError } from "@zmkfirmware/zmk-studio-ts-client/transport/
 import { Button, ButtonProps } from "@/components/atoms/ui/button";
 import { toast } from "sonner";
 import { useKeyboardMetaStore } from "@/lib/state/keyboardMetaStore";
-import { useSetCurrentStep } from "@/lib/state/currentStepContext";
+import { useSetCurrentStep } from "@/lib/state/currentStep";
 
 type AvailableDevice = { id: string; label: string };
 
@@ -30,7 +30,7 @@ function NoTransports() {
   return (
     <div className="space-y-3">
       <p>
-        Your browser is not supported. ZMK Studio uses either {""}
+        Your browser is not supported. better-zmk-studio uses either {""}
         <a
           className="underline"
           href="https://caniuse.com/web-serial"
@@ -51,7 +51,7 @@ function NoTransports() {
         (Linux only) to connect to ZMK devices.
       </p>
       <div>
-        <p>To use ZMK Studio, either:</p>
+        <p>To use better-zmk-studio, either:</p>
         <ul className="list-disc list-inside">
           <li>
             Use a browser that supports the above web technologies, e.g.

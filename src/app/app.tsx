@@ -1,4 +1,6 @@
 import { useCallback, useContext, useEffect, useState } from "react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Routes, Route, Navigate, Outlet } from "react-router-dom";
 
 // import ZmkConnect from "@/components/organisms/zmk-connect";
@@ -18,17 +20,19 @@ import { LockState } from "@zmkfirmware/zmk-studio-ts-client/core";
 import { Toaster } from "@/components/atoms/ui/sonner";
 import { toast } from "sonner";
 import { useKeyboardMetaStore } from "@/lib/state/keyboardMetaStore";
-import Home from "@/app/routes/home";
+import Keybinds from "@/app/routes/keybinds";
 import ConnectRoute from "@/app/routes/connect";
 import { CurrentStepProvider } from "@/lib/state/currentStepContext";
 import { TransportFactory } from "@/components/organisms/connect-button";
+import Layout from "@/app/routes/layout";
+import Settings from "@/app/routes/settings";
 
 const TRANSPORTS: TransportFactory[] = (
   [
     "serial" in navigator
       ? { label: "USB", pick_and_connect: undefined, connect: serial_connect }
       : undefined,
-    "bluetooth" in navigator && navigator.userAgent.indexOf("Linux") >= 0
+    "bluetooth" in navigator
       ? {
           label: "BLE",
           isWireless: true,
@@ -40,6 +44,7 @@ const TRANSPORTS: TransportFactory[] = (
 ).filter((t): t is TransportFactory => Boolean(t));
 
 function App() {
+  const [queryClient] = useState(() => new QueryClient());
   const [conn, setConn] = useState<ConnectionState>({ conn: null });
   const [lockState, setLockState] = useState<LockState>(
     LockState.ZMK_STUDIO_CORE_LOCK_STATE_LOCKED
@@ -117,30 +122,40 @@ function App() {
   }, [conn]);
 
   return (
-    <ConnectionContext.Provider value={conn}>
-      <LockStateContext.Provider value={lockState}>
-        <Routes>
-          <Route element={<RequireConnection />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/settings" element={<div>Settings</div>} />
-          </Route>
-          <Route
-            path="/connect"
-            element={
-              <CurrentStepProvider>
-                <ConnectRoute
-                  transports={TRANSPORTS}
-                  onTransportCreated={onConnect}
-                />
-              </CurrentStepProvider>
-            }
-          />
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
+    <QueryClientProvider client={queryClient}>
+      <ConnectionContext.Provider value={conn}>
+        <LockStateContext.Provider value={lockState}>
+          <Routes>
+            <Route element={<RequireConnection />}>
+              <Route element={<Layout />}>
+                <Route index element={<Keybinds />} />
+                <Route path="settings" element={<Settings />} />
+              </Route>
+            </Route>
+            <Route
+              path="/connect"
+              element={
+                <CurrentStepProvider>
+                  <ConnectRoute
+                    transports={TRANSPORTS}
+                    onTransportCreated={onConnect}
+                  />
+                </CurrentStepProvider>
+              }
+            />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
 
-        <Toaster />
-      </LockStateContext.Provider>
-    </ConnectionContext.Provider>
+          <Toaster />
+          {import.meta.env?.MODE === "development" ? (
+            <ReactQueryDevtools
+              initialIsOpen={false}
+              buttonPosition="bottom-right"
+            />
+          ) : null}
+        </LockStateContext.Provider>
+      </ConnectionContext.Provider>
+    </QueryClientProvider>
   );
 }
 

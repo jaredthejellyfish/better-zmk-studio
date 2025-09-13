@@ -6,20 +6,18 @@ import {
 } from "@/components/organisms/connect-button";
 import { ConnectionContext } from "@/lib/rpc/ConnectionContext";
 import { LockStateContext } from "@/lib/rpc/LockStateContext";
-import {
-  useCurrentStep,
-  useSetCurrentStep,
-} from "@/lib/state/currentStepContext";
+import { useCurrentStep, useSetCurrentStep } from "@/lib/state/currentStep";
 import { useKeyboardMetaStore } from "@/lib/state/keyboardMetaStore";
 import { LockState } from "@zmkfirmware/zmk-studio-ts-client/core";
 import { RpcTransport } from "@zmkfirmware/zmk-studio-ts-client/transport/index";
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import PageHead from "@/components/atoms/page-head";
 
 const STEPS = [
   { id: 1 as const, label: "Connect" },
-  { id: 2 as const, label: "Allow" },
-  { id: 3 as const, label: "Update" },
+  { id: 2 as const, label: "Unlock" },
+  { id: 3 as const, label: "Finish" },
 ];
 
 function ConnectRoute({
@@ -33,6 +31,10 @@ function ConnectRoute({
 
   return (
     <main className="px-6 py-10 w-screen min-h-screen bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-zinc-900 via-zinc-950 to-black">
+      <PageHead
+        title="Connect | better-zmk-studio"
+        description="Connect your keyboard to better-zmk-studio using USB (or BLE on Linux)."
+      />
       <div className="mx-auto max-w-3xl w-full" id="connect-page">
         <ol className="flex w-full items-center justify-between gap-4">
           {STEPS.map((step, idx) => {
@@ -183,10 +185,11 @@ function AllowStep() {
             ) : (
               <>
                 <h1 className="text-2xl font-semibold">
-                  Studio unlock required
+                  better-zmk-studio unlock required
                 </h1>
                 <p className="mt-2 text-sm text-white/70 max-w-prose">
-                  To continue, unlock Studio using your keyboard's unlock combo.
+                  To continue, unlock better-zmk-studio using your keyboard's
+                  unlock combo.
                 </p>
                 <div className="mt-4 inline-flex items-center gap-2 rounded-md border border-amber-300/30 bg-amber-300/10 px-3 py-1.5 text-amber-200">
                   <span className="h-2 w-2 rounded-full bg-amber-300 animate-pulse" />

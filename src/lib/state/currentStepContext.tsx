@@ -1,16 +1,5 @@
-import {
-  createContext,
-  useContext,
-  useState,
-  type ReactNode,
-  type Dispatch,
-  type SetStateAction,
-} from "react";
-
-export const CurrentStepContext = createContext<number>(1);
-const SetCurrentStepContext = createContext<
-  Dispatch<SetStateAction<number>> | undefined
->(undefined);
+import { useState, type ReactNode } from "react";
+import { CurrentStepContext, SetCurrentStepContext } from "./currentStep";
 
 export function CurrentStepProvider({
   children,
@@ -28,17 +17,3 @@ export function CurrentStepProvider({
     </CurrentStepContext.Provider>
   );
 }
-
-export const useCurrentStep = () => {
-  return useContext(CurrentStepContext);
-};
-
-export const useSetCurrentStep = () => {
-  const setCurrentStep = useContext(SetCurrentStepContext);
-  if (!setCurrentStep) {
-    throw new Error(
-      "useSetCurrentStep must be used within a CurrentStepProvider"
-    );
-  }
-  return setCurrentStep;
-};
