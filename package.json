@@ -1,0 +1,87 @@
+{
+  "name": "vital",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Starter template for Vite with React (TypeScript). Supports Tailwind. Vitest and @react/testing-library configured and ready to go. Also ESLint, Prettier, Husky, Commit-lint and Atomic Design for components.",
+  "homepage": "https://github.com/jvidalv/vital#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jvidalv/vital.git"
+  },
+  "author": "Josep Vidal <josepvidalvidal@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jvidalv/vital/issues"
+  },
+  "keywords": [
+    "react",
+    "vite",
+    "typescript",
+    "tailwind",
+    "template",
+    "starter",
+    "eslint",
+    "prettier"
+  ],
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not IE 11"
+  ],
+  "engines": {
+    "node": ">=18",
+    "yarn": ">=1.22.5"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@heroicons/react": "2.1.5",
+    "@radix-ui/react-dialog": "^1.1.15",
+    "@radix-ui/react-scroll-area": "^1.2.10",
+    "@radix-ui/react-select": "^2.2.6",
+    "@radix-ui/react-separator": "^1.1.7",
+    "@radix-ui/react-slot": "^1.2.3",
+    "@tailwindcss/postcss": "^4.1.13",
+    "@tailwindcss/vite": "^4.1.13",
+    "@zmkfirmware/zmk-studio-ts-client": "^0.0.18",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.544.0",
+    "next-themes": "^0.4.6",
+    "path": "^0.12.7",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-router-dom": "^6.27.0",
+    "sonner": "^2.0.7",
+    "tailwind-merge": "^3.3.1",
+    "tailwindcss-animate": "^1.0.7",
+    "zustand": "^5.0.8"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "19.5.0",
+    "@eslint/js": "9.13.0",
+    "@tailwindcss/forms": "0.5.9",
+    "@types/node": "^24.3.3",
+    "@types/react": "18.3.12",
+    "@types/react-dom": "18.3.1",
+    "@vitejs/plugin-react": "4.3.3",
+    "autoprefixer": "10.4.20",
+    "eslint": "9.13.0",
+    "eslint-plugin-react-hooks": "5.0.0",
+    "eslint-plugin-react-refresh": "0.4.14",
+    "lint-staged": "15.2.10",
+    "postcss": "8.4.47",
+    "prettier": "3.3.3",
+    "tailwindcss": "^4.1.13",
+    "typescript": "5.6.3",
+    "typescript-eslint": "8.10.0",
+    "vite": "^7.1.5",
+    "vite-plugin-pwa": "^1.0.3",
+    "vite-preset-react": "2.3.0",
+    "workbox-window": "^7.3.0"
+  }
+}
